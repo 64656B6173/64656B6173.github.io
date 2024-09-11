@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nome da Janela</title>
-</head>
+<html>
 <body>
-    <h1 id="title">Carregando...</h1>
+    <h1 id="span-text">Carregando...</h1>
     <script>
-        fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://ragnatales.com.br'))
+        fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://ragnatales.com.br/db/items/4281'))
             .then(response => response.json())
             .then(data => {
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(data.contents, 'text/html');
-                document.getElementById('title').innerText = doc.title;
+                let span = doc.querySelector('span.inline-block.font-mono.zeny-100000-999999');
+                document.getElementById('span-text').innerText = span ? span.innerText : 'Não encontrado';
             })
             .catch(error => console.error('Erro:', error));
     </script>
