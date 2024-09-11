@@ -8,6 +8,7 @@
             .then(data => {
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(data.contents, 'text/html');
+                console.log(doc.documentElement.innerHTML); // Verifique o HTML retornado
                 let span = doc.querySelector('span.inline-block.font-mono.zeny-100000-999999');
                 document.getElementById('span-text').innerText = span ? span.innerText : 'Não encontrado';
             })
