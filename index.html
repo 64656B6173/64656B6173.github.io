@@ -8,9 +8,15 @@
             .then(data => {
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(data.contents, 'text/html');
-                console.log(doc.documentElement.innerHTML); // Verifique o HTML retornado
-                let span = doc.querySelector('span.inline-block.font-mono.zeny-100000-999999');
-                document.getElementById('span-text').innerText = span ? span.innerText : 'Não encontrado';
+                let content = doc.body.textContent; // Pega todo o texto da página
+                let startIndex = content.indexOf('A Média de preço deste item é de ');
+                if (startIndex !== -1) {
+                    let valueStart = startIndex + 'A Média de preço deste item é de '.length;
+                    let value = content.substring(valueStart).split('\n')[0].trim(); // Pega o valor até a próxima linha ou espaço
+                    document.getElementById('span-text').innerText = value || 'Não encontrado';
+                } else {
+                    document.getElementById('span-text').innerText = 'Texto não encontrado';
+                }
             })
             .catch(error => console.error('Erro:', error));
     </script>
